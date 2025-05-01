@@ -12,12 +12,19 @@ use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionResource extends Resource
 {
     protected static ?string $model = Question::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return Question::query()->where('teacher_id', Auth::id());
+    }
 
     public static function form(Form $form): Form
     {
@@ -27,7 +34,9 @@ class QuestionResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('subject_id')
                             ->required()
-                            ->relationship('subject', 'name'),
+                            ->relationship('subject', 'name', function (Builder $query) {
+                                return $query->where('teacher_id', Auth::id());
+                            }),
                         Forms\Components\RichEditor::make('text')
                             ->required()
                             ->columnSpanFull(),
@@ -103,7 +112,8 @@ class QuestionResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->requiresConfirmation(),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])

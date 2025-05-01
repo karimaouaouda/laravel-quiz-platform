@@ -22,6 +22,11 @@ class SubjectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return Subject::query()->where('teacher_id', Auth::id());
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -50,8 +55,13 @@ class SubjectResource extends Resource
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('subject description')
                     ->words(5)
                     ->tooltip(fn($state) => $state),
+                TextColumn::make('questions_count')
+                    ->badge()
+                    ->default('0')
+                    ->formatStateUsing(fn(Subject $record) => $record->questions()->count() ),
             ])
             ->filters([
                 //

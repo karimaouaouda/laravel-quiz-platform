@@ -21,7 +21,7 @@ class SubjectPolicy
      */
     public function view(User $user, Subject $subject): bool
     {
-        return true;
+        return $subject->getAttribute('teacher_id') == $user->getAttribute('id');
     }
 
     /**

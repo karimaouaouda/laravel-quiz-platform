@@ -51,6 +51,7 @@ class Pass extends Component
 
         if( !$question ){
             // the quiz finished just redirect the user to the finish screen
+
         }
 
         $this->question = $question;
