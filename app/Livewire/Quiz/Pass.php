@@ -24,11 +24,14 @@ class Pass extends Component
 
     public function mount(): void
     {
+
         $this->quiz = Quiz::query()
             ->findOrFail(request('quiz'));
 
+
+
         $this->submission = Submission::query()
-            ->findOrNew([
+            ->firstOrCreate([
                 'quiz_id' => $this->quiz->id,
                 'student_id' => Auth::id(),
             ])->first();

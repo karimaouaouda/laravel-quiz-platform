@@ -24,7 +24,7 @@ class GlobalStats extends BaseWidget
 
     private function makeSubjectsStat(): Stat
     {
-        return Stat::make('subjects', 5)
+        return Stat::make('subjects', Auth::user()->subjects()->count())
             ->label('Subjects')
             ->color(Color::Red)
             ->icon('heroicon-s-rectangle-stack')
@@ -34,7 +34,7 @@ class GlobalStats extends BaseWidget
     }
     private function makeQuizzesStat(): Stat
     {
-        return Stat::make('quizzes', 10)
+        return Stat::make('quizzes', Auth::user()->quizzes()->count())
             ->color(Color::Green)
             ->icon('heroicon-s-queue-list')
             ->chart([2, 1.5, 1.8, 1.2, 1, 0.8, 1.2, 1.3, 1])
@@ -45,7 +45,7 @@ class GlobalStats extends BaseWidget
 
     private function makeStudentStat(): Stat
     {
-        return Stat::make('students', 100)
+        return Stat::make('students', User::query()->where('role', 'student')->count())
             ->color(Color::Blue)
             ->icon('heroicon-s-users')
             ->chart(array_reverse([2, 1.5, 1.8, 1.2, 1, 0.8, 1.2, 1.3, 1]))

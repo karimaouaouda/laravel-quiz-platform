@@ -32,6 +32,7 @@ class TeacherPanelProvider extends PanelProvider
             ->login(Login::class)
             ->registration(Register::class)
             ->emailVerification()
+            ->databaseNotifications()
             ->colors([
                 'primary' => Color::Amber,
             ])

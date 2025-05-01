@@ -46,7 +46,7 @@ class SubmissionResource extends Resource
     {
         return $table
             ->columns([
-                //
+
             ])
             ->filters([
                 //
