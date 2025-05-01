@@ -68,9 +68,14 @@ class User extends Authenticatable implements FilamentUser
     /**
      * Get the quizzes created by the user (if the user is a teacher or admin).
      */
-    public function quizzes()
+    public function quizzes(): HasMany
     {
-        return $this->hasMany(Quiz::class);
+        return $this->hasMany(Quiz::class, 'teacher_id');
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class, 'teacher_id');
     }
 
     /**

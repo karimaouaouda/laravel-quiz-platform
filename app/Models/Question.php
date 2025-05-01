@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DifficultyLevel;
+use App\Enums\QuestionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,7 @@ class Question extends Model
         'subject_id',
         'text',
         'difficulty_level',
+        'question_type'
     ];
 
     /**
@@ -31,6 +33,7 @@ class Question extends Model
      */
     protected $casts = [
         'difficulty_level' => DifficultyLevel::class,
+        'question_type' => QuestionType::class,
     ];
 
     /**

@@ -8,6 +8,16 @@ enum DifficultyLevel : string
     case HARD = 'hard';
     case MEDIUM = 'medium';
 
+    public static function values(): array
+    {
+        $values = [];
+
+        foreach (static::cases() as $case) {
+            $values[] = $case->value;
+        }
+
+        return $values;
+    }
 
     public static function toArray($reversed = false): array
     {

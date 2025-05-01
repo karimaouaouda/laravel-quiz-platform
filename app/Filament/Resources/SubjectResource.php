@@ -14,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectResource extends Resource
 {
@@ -25,6 +26,9 @@ class SubjectResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('teacher_id')
+                    ->default(Auth::id())
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\Textarea::make('description')

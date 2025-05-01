@@ -59,13 +59,13 @@
             <div class="w-full flex flex-wrap gap-2 justify-center">
                 @foreach($quizzes as $quiz)
                 <div
-                    class="relative hover:bg-sky-500 group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    class="relative hover:bg-sky-500 group cursor-pointer overflow-hidden bg-white px-2 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm  sm:px-4">
                     <div class="relative z-10 max-w-md">
-                        <h2 class="text-3xl text-slate-800 group-hover:text-white font-bold transition-all duration-300">
+                        <h2 class="text-xl text-slate-800 group-hover:text-white font-bold transition-all duration-300">
                             {{ $quiz->title }}
                         </h2>
                         <div
-                            class="space-y-6 pt-3 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                            class="space-y-6 text-sm pt-3 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                             <p class="max-h-76 line-clamp-3">
                                 {{ $quiz->description }}
                             </p>
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="pt-5 text-base font-semibold leading-7">
-                            <p>
+                            <p class="text-sm">
                                 <a href="{{ route('quizzes.pass', ['quiz' => $quiz->id]) }}" class="text-sky-500 transition-all duration-300 group-hover:text-white">take the quiz
                                     &rarr;
                                 </a>

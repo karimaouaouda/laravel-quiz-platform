@@ -17,6 +17,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ManageQuizQuestions extends ManageRelatedRecords
@@ -61,7 +62,25 @@ class ManageQuizQuestions extends ManageRelatedRecords
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                Tables\Actions\AttachAction::make(),
+                Action::make('Attach')
+                    ->color(Color::Gray)
+                    ->form([
+                        Forms\Components\Select::make('questions')
+                            ->multiple()
+                            ->minItems(1)
+                            ->options(function(){
+                                return Auth::user()
+                                    ->questions()
+                                    ->where('subject_id', $this->record->subject->id)
+                                    ->where('difficulty_level', $this->record->difficulty_level)
+                                    ->get()
+                                    ->pluck('text', 'id')
+                                    ->toArray();
+                            })->allowHtml()
+                    ])->action(function(array $data){
+                        $selected_questions = array_values($data['questions']);
+                        $this->record->questions()->syncWithoutDetaching($selected_questions);
+                    }),
                 Action::make('generate random questions')
                     ->icon('heroicon-o-arrow-path')
                     ->color(Color::Blue)

@@ -20,9 +20,8 @@ return new class extends Migration
                 ->constrained('subjects')
                 ->cascadeOnDelete();
             $table->text('text');
-            $table->enum('difficulty_level',
-                array_map(fn(\App\Enums\DifficultyLevel $case) => $case->value, \App\Enums\DifficultyLevel::cases())
-            );
+            $table->enum('difficulty_level', \App\Enums\DifficultyLevel::values());
+            $table->enum('question_type', \App\Enums\QuestionType::values());
             $table->timestamps();
         });
     }

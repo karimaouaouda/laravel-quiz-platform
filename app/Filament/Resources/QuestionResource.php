@@ -3,20 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Enums\DifficultyLevel;
+use App\Enums\QuestionType;
 use App\Filament\Resources\QuestionResource\Pages;
-use App\Filament\Resources\QuestionResource\RelationManagers;
 use App\Models\Question;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 
 class QuestionResource extends Resource
 {
@@ -30,28 +25,47 @@ class QuestionResource extends Resource
             ->schema([
                 Forms\Components\Section::make('question information')
                     ->schema([
-                        Forms\Components\Hidden::make('teacher_id')
-                            ->required()
-                            ->default(Auth::id()),
                         Forms\Components\Select::make('subject_id')
                             ->required()
                             ->relationship('subject', 'name'),
                         Forms\Components\RichEditor::make('text')
                             ->required()
                             ->columnSpanFull(),
+                        Forms\Components\Radio::make('question_type')
+                            ->required()
+                            ->default(QuestionType::ONE_CHOICE->value)
+                            ->live()
+                            ->options(QuestionType::toArray()),
                         Forms\Components\Select::make('difficulty_level')
                             ->required()
                             ->options(DifficultyLevel::toArray(true))
                             ->enum(DifficultyLevel::class),
                     ]),
+                Forms\Components\Radio::make('is_true')
+                    ->visible(function(Forms\Get $get){
+                        return $get('question_type') == QuestionType::TRUE_FALSE->value;
+                    })
+                    ->options([
+                        false => 'false',
+                        true => 'true',
+                    ])
+                    ->required()
+                    ->default(false),
+
                 Forms\Components\Section::make('choices')
+                    ->visible(function(Forms\Get $get){
+                        return $get('question_type') != QuestionType::TRUE_FALSE->value;
+                    })
                     ->schema([
                         Forms\Components\Repeater::make('choices')
+                            ->relationship('choices')
+                            ->live()
                             ->minItems(1)
                             ->schema([
                                 Forms\Components\TextInput::make('text')
                                     ->required(),
                                 Forms\Components\Radio::make('is_correct')
+                                    ->required()
                                     ->options([
                                         false => 'wrong',
                                         true => 'correct',
@@ -82,7 +96,7 @@ class QuestionResource extends Resource
                     ->options(DifficultyLevel::toArray(true)),
                 Tables\Columns\TextColumn::make('correct_answer')
                     ->default('no correct answer')
-                    ->formatStateUsing(fn(Question $record) => $record->choices()->where('is_correct', true)->first()->text)
+                    ->formatStateUsing(fn(Question $record) => $record->choices()->where('is_correct', true)->first()?->text ?? "no answer")
                     ->badge(),
             ])
             ->filters([
