@@ -48,23 +48,33 @@
                 <div
                     class="relative group cursor-pointer bg-white rounded-xl shadow p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl max-w-xs w-full border border-transparent hover:border-blue-400">
                     <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="card-header flex justify-between items-center">
                         <h2 class="text-xl text-slate-800 group-hover:text-blue-500 font-bold transition-all duration-300">
                             {{ $quiz->title }}
                         </h2>
+                        <span class="text-xs text-gray-500">
+                            {{ $quiz->created_at->format('M d, Y') }}
+                        </span>
+                        </div>
                         <div class="pt-3 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-gray-700">
                             <p class="max-h-24 line-clamp-3">
                                 {{ $quiz->description }}
                             </p>
                         </div>
-                        <div class="flex flex-col space-y-2">
-                            <div class="w-full mt-4 flex flex-wrap gap-3">
+
+                        <div class="flex mt-4 flex-col space-y-2">
+                            <div class="flex  space-x-1 items-center">
+                                <i class="bi text-sm bi-person text-slate-800"></i>
+                                <span class="text-xs text-slate-800">published by: {{ $quiz->teacher->name }}</span>
+                            </div>
+                            <div class="w-full flex flex-wrap gap-3">
                                 <div class="flex space-x-1 items-center">
                                     <i class="bi text-sm bi-people text-slate-800"></i>
-                                    <span class="text-xs text-slate-800">+100 submissions</span>
+                                    <span class="text-xs text-slate-800">+{{ $quiz->submissions()->count() }} submissions</span>
                                 </div>
                                 <div class="flex space-x-1 items-center">
                                     <i class="bi text-sm bi-stopwatch text-slate-800"></i>
-                                    <span class="text-xs text-slate-800">3.5h 4min</span>
+                                    <span class="text-xs text-slate-800"> {{ $quiz->questions()->sum('time_limit') }}s </span>
                                 </div>
                                 <div class="flex space-x-1 items-center">
                                     <i class="bi text-sm bi-list-ol text-slate-800"></i>
