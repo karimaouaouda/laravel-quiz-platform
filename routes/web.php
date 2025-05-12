@@ -6,6 +6,13 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Submission;
+
+Route::get('/quiz/result/{submission}', function (Submission $submission) {
+    return view('quiz.result', [
+        'submission' => $submission,
+    ]);
+})->name('quiz.result');
 
 Route::get('/', function () {
     if (Auth::check()) {

@@ -21,10 +21,18 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->foreignId('choice_id')
+                ->nullable()
                 ->constrained('choices')
                 ->onDelete('cascade');
 
-            $table->integer('answer_duration', unsigned: true)->nullable()->default(0);
+            $table->boolean('skipped')
+                ->default(false);
+            $table->boolean('time_expired')
+                ->default(false);
+
+            $table->integer('answer_duration', unsigned: true)
+                ->nullable()
+                ->default(0);
 
             $table->timestamps();
 

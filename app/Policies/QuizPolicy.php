@@ -13,7 +13,7 @@ class QuizPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isTeacher();
+        return $user->isTeacher() || $user->isAdmin();
     }
 
     /**
@@ -21,7 +21,7 @@ class QuizPolicy
      */
     public function view(User $user, Quiz $quiz): bool
     {
-        return $quiz->teacher_id === $user->id;
+        return $quiz->teacher_id === $user->id || $user->isAdmin();
     }
 
     /**
@@ -29,7 +29,7 @@ class QuizPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isTeacher();
+        return $user->isTeacher() || $user->isAdmin();
     }
 
     /**
@@ -37,7 +37,7 @@ class QuizPolicy
      */
     public function update(User $user, Quiz $quiz): bool
     {
-        return $quiz->teacher_id === $user->id;
+        return $quiz->teacher_id === $user->id || $user->isAdmin();
     }
 
     /**
@@ -45,7 +45,7 @@ class QuizPolicy
      */
     public function delete(User $user, Quiz $quiz): bool
     {
-        return $quiz->teacher_id === $user->id;
+        return $quiz->teacher_id === $user->id || $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class QuizPolicy
      */
     public function restore(User $user, Quiz $quiz): bool
     {
-        return $quiz->teacher_id === $user->id;
+        return $quiz->teacher_id === $user->id || $user->isAdmin();
     }
 
     /**
@@ -61,6 +61,6 @@ class QuizPolicy
      */
     public function forceDelete(User $user, Quiz $quiz): bool
     {
-        return $quiz->teacher_id === $user->id;
+        return $quiz->teacher_id === $user->id || $user->isAdmin();
     }
 }

@@ -81,7 +81,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                         $selected_questions = array_values($data['questions']);
                         $this->record->questions()->syncWithoutDetaching($selected_questions);
                     }),
-                Action::make('generate random questions')
+                Action::make('select random questions')
                     ->icon('heroicon-o-arrow-path')
                     ->color(Color::Blue)
                     ->form([
@@ -93,39 +93,25 @@ class ManageQuizQuestions extends ManageRelatedRecords
                             ->hint('the number of questions will attached')
                     ])
                     ->action(function(array $data){
-                        $diff_level = $this->record->getAttribute('difficulty_level');
+                        //$diff_level = $this->record->getAttribute('difficulty_level');
                         $subject_id = $this->record->getAttribute('subject_id');
                         $count = $data['questions_count'];
 
                         $available_questions = Question::query()
                             ->where('teacher_id', $this->record->getAttribute('teacher_id'))
-                            ->where('difficulty_level', $diff_level)
                             ->where('subject_id', $subject_id)
                             ->get();
 
-                        $questions_to_attach = $available_questions->random($count);
-
-                        $values = [];
-
-                        $questions_to_attach->each(function (Question $question) use (&$values) {
-                            $arr = [];
-                            $arr['quiz_id'] = $this->record->getAttribute('id');
-                            $arr['question_id'] = $question['id'];
-                            $arr['attached_at'] = now();
-
-                            $values[] = $arr;
-                        });
-
-                        try{
-                            DB::table('quizzes_questions')
-                                ->insert($values);
-                        }catch (\Exception $exception){
+                        if($available_questions->count() < $count){
                             Notification::make()
                                 ->title('error')
-                                ->body($exception->getMessage())
+                                ->body('not enough questions')
                                 ->color(Color::Red);
+
+                            return;
                         }
 
+                        $this->record->questions()->syncWithoutDetaching($available_questions->random($count));
                     }),
             ])
             ->actions([

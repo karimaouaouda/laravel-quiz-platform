@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
+use Livewire\Attributes\On;
+
 
 class Pass extends Component
 {
@@ -21,6 +23,8 @@ class Pass extends Component
     public Submission $submission;
 
     public ?string $answer = '';
+
+    public int $timeLeft = 60;
 
     public function mount(): void
     {
@@ -54,10 +58,16 @@ class Pass extends Component
 
         if( !$question ){
             // the quiz finished just redirect the user to the finish screen
-
+            $this->redirectIntended(route('quiz.result', [
+                'submission' => $this->submission,
+            ]));
+        }else{
+            $this->question = $question;
+        
+            $this->timeLeft = 60; // Reset timer for each question
         }
 
-        $this->question = $question;
+        
     }
 
     public function nextQuestion(): void
@@ -77,19 +87,30 @@ class Pass extends Component
         $this->redirectIntended('/');
     }
 
-    public function validateAnswer(): void {
+    public function validateAnswer($timeLeft = null): void {
+        $duration = $timeLeft !== null ? (60 - (int)$timeLeft) : 0;
         $this->submission->answers()->create([
             'question_id' => $this->question->id,
             'choice_id' => $this->answer,
-            'answer_duration' => 0
+            'answer_duration' => $duration
         ]);
-
         $this->setup();
     }
+
+    #[On('timeExpired')]
+    public function timeExpired()
+    {
+        // Auto-submit with no answer or mark as unanswered
+        $this->validateAnswer(0);
+    }
+
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory
     {
         return view('livewire.quiz.pass', [
             'question' => $this->question,
+            'currentQuestionNumber' => 1, // Replace with actual logic
+            'totalQuestions' => 10, // Replace with actual logic
         ]);
     }
 }
+

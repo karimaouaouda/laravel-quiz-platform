@@ -14,8 +14,17 @@ class Answer extends Model
         'submission_id',
         'question_id',
         'choice_id',
+        'skipped',
+        'time_expired',
         'answer_duration'
     ];
+
+    protected $casts = [
+        'skipped' => 'boolean',
+        'time_expired' => 'boolean',
+    ];
+
+
     public function question(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Question::class);

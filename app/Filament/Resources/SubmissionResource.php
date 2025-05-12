@@ -8,7 +8,9 @@ use App\Models\Submission;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,7 +48,35 @@ class SubmissionResource extends Resource
     {
         return $table
             ->columns([
-
+                TextColumn::make('id')
+                    ->prefix('#')
+                    ->badge()
+                    ->color(Color::Green),
+                TextColumn::make('student.name')
+                    ->searchable()
+                    ->icon('heroicon-o-user'),
+                TextColumn::make('quiz.title')
+                    ->searchable()
+                    ->icon('heroicon-o-book-open'),
+                TextColumn::make('score')
+                    ->sortable()
+                    ->icon('heroicon-o-star')
+                    ->badge()
+                    ->color(Color::Blue)
+                    ->suffix(function($record){
+                        return '%' . ' (' . $record->correct_answers_count . ' / ' . $record->answers()->count() . ')';
+                    }),
+                TextColumn::make('time_taken')
+                    ->default(0)
+                    ->formatStateUsing(function($record){
+                        return $record->answers()->sum('answer_duration') . 's';
+                    })
+                    ->sortable()
+                    ->icon('heroicon-o-clock'),
+                TextColumn::make('created_at')
+                    ->sortable()
+                    ->icon('heroicon-o-clock')
+                    ->dateTime('d-m-Y H:i'),
             ])
             ->filters([
                 //

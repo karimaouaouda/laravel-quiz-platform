@@ -19,6 +19,17 @@ class Submission extends Model
         'quiz_id', // Foreign key for the related quiz
     ];
 
+    public function getScoreAttribute(){
+        $questions_count = $this->answers()->count(); // answers count is the same as questions count
+        return $this->correct_answers_count / $questions_count * 100;
+    }
+
+    public function getCorrectAnswersCountAttribute(){
+        return $this->answers()->whereHas('choice', function($q){
+            $q->where('is_correct', true);
+        })->count();
+    }
+
     /**
      * Get the user who made this submission.
      */

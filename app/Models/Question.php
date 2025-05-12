@@ -23,6 +23,7 @@ class Question extends Model
         'subject_id',
         'text',
         'difficulty_level',
+        'time_limit',
         'question_type'
     ];
 

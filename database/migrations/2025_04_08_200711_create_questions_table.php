@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('text');
             $table->enum('difficulty_level', \App\Enums\DifficultyLevel::values());
             $table->enum('question_type', \App\Enums\QuestionType::values());
+            $table->integer('time_limit', autoIncrement: false, unsigned: true)
+                ->nullable();
             $table->timestamps();
         });
     }

@@ -37,6 +37,12 @@ class QuestionResource extends Resource
                             ->relationship('subject', 'name', function (Builder $query) {
                                 return $query->where('teacher_id', Auth::id());
                             }),
+                        Forms\Components\TextInput::make('time_limit')
+                            ->required()
+                            ->prefixIcon('heroicon-o-clock')
+                            ->hint('the time limit for the question in seconds')
+                            ->default(60)
+                            ->numeric(),
                         Forms\Components\RichEditor::make('text')
                             ->required()
                             ->columnSpanFull(),
