@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
     <meta name="twitter:image" content="https://img.icons8.com/ios-filled/50/000000/quiz.png" />
     @vite('resources/css/app.css')
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <!-- Header -->
     <header class="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
@@ -32,34 +34,43 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto mt-16 flex flex-col md:flex-row items-center justify-between gap-10 px-4">
-        <!-- Left: Text and Cards -->
-        <div class="flex-1 flex flex-col items-start">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Welcome to the Quiz Generator</h1>
-            <p class="text-gray-500 mb-8">Create, share and take quizzes with ease</p>
-            <div class="flex flex-col md:flex-row gap-6 mb-6">
-                <!-- Student Card -->
-                <a href="{{route('filament.student.pages.dashboard')}}" class="bg-white rounded-xl shadow p-6 flex-1 min-w-[220px] flex flex-col items-center hover:bg-sky-600 hover:!text-white ease-in-out duration-300 group">
-                    <div class="text-blue-500 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    </div>
-                    <div class="font-semibold text-lg mb-1">Student</div>
-                    <div class="text-gray-500 text-sm text-center group-hover:text-white">Join and answer quizzes</div>
-                </a>
-                <!-- Teacher Card -->
-                <a href="{{route('filament.teacher.pages.dashboard')}}" class="bg-white rounded-xl shadow p-6 flex-1 min-w-[220px] flex flex-col items-center hover:bg-sky-600 hover:!text-white ease-in-out duration-300 group">
-                    <div class="text-blue-500 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" /></svg>
-                    </div>
-                    <div class="font-semibold text-lg mb-1">Teacher</div>
-                    <div class="text-gray-500 text-sm text-center group-hover:text-white">Create and manage quizzes</div>
-                </a>
+    <main class="w-full mx-auto mt-16 flex flex-col items-center justify-between gap-10 px-4">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Welcome to the Quiz Generator</h1>
+        <p class="text-gray-500 mb-8">Create, share and take quizzes with ease</p>
+
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 px-4">
+            <!-- Left: Text and Cards -->
+            <div class="flex-1 flex flex-col items-start">
+
+                <div class="flex w-full flex-col md:flex-row gap-6 mb-6">
+                    <!-- Student Card -->
+                    <a href="{{route('filament.student.pages.dashboard')}}" 
+                        class="bg-white rounded-xl shadow p-6 flex-1 min-w-[220px] flex flex-col items-center hover:bg-sky-600 hover:!text-white ease-in-out duration-300 group">
+                        <div class="text-blue-500 group-hover:text-white mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-lg mb-1">Student</div>
+                        <div class="text-gray-500 text-sm text-center group-hover:text-white">Join and answer quizzes</div>
+                    </a>
+                    <!-- Teacher Card -->
+                    <a href="{{route('filament.teacher.pages.dashboard')}}" class="bg-white rounded-xl shadow p-6 flex-1 min-w-[220px] flex flex-col items-center hover:bg-sky-600 hover:!text-white ease-in-out duration-300 group">
+                        <div class="text-blue-500 group-hover:text-white mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-lg mb-1">Teacher</div>
+                        <div class="text-gray-500 text-sm text-center group-hover:text-white">Create and manage quizzes</div>
+                    </a>
+                </div>
+                <a href="#" class="block w-full  text-center border border-blue-400 text-blue-500 rounded-md px-6 py-2 font-medium hover:bg-blue-50 transition">Create New Account</a>
             </div>
-            <a href="#" class="block w-full md:w-auto text-center border border-blue-400 text-blue-500 rounded-md px-6 py-2 font-medium hover:bg-blue-50 transition">Create New Account</a>
-        </div>
-        <!-- Right: Illustration -->
-        <div class="flex-1 flex justify-center">
-            <img src="https://img.freepik.com/free-vector/online-test-illustration_52683-39879.jpg?w=826&t=st=1717171717~exp=1717172317~hmac=6e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e" alt="Quiz Illustration" class="rounded-2xl shadow-lg max-w-full md:max-w-md bg-blue-100">
+            <!-- Right: Illustration -->
+            <div class="flex justify-center w-2/5">
+                <img loading="lazy" src="{{ asset('/images/landing-pic3.webp') }}">
+            </div>
         </div>
     </main>
 
@@ -78,7 +89,9 @@
             <!-- Share Quizzes -->
             <div class="flex-1 bg-white rounded-xl shadow p-6 flex flex-col items-center">
                 <div class="text-blue-500 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A2 2 0 0020 6.382V5a2 2 0 00-2-2H6a2 2 0 00-2 2v1.382a2 2 0 00.447 1.342L9 10m6 0v10m0 0H9m6 0a2 2 0 002-2v-8a2 2 0 00-2-2H9a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A2 2 0 0020 6.382V5a2 2 0 00-2-2H6a2 2 0 00-2 2v1.382a2 2 0 00.447 1.342L9 10m6 0v10m0 0H9m6 0a2 2 0 002-2v-8a2 2 0 00-2-2H9a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
                 </div>
                 <div class="font-semibold text-lg mb-1">Share Quizzes</div>
                 <div class="text-gray-500 text-center">Easily create and share quizzes with your peers or students.</div>
@@ -86,7 +99,9 @@
             <!-- Pass Quizzes -->
             <div class="flex-1 bg-white rounded-xl shadow p-6 flex flex-col items-center">
                 <div class="text-blue-500 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 2a9 9 0 11-18 0a9 9 0 0118 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 2a9 9 0 11-18 0a9 9 0 0118 0z" />
+                    </svg>
                 </div>
                 <div class="font-semibold text-lg mb-1">Pass Quizzes</div>
                 <div class="text-gray-500 text-center">Take quizzes, test your knowledge, and track your progress.</div>
@@ -94,7 +109,9 @@
             <!-- Collaboration -->
             <div class="flex-1 bg-white rounded-xl shadow p-6 flex flex-col items-center">
                 <div class="text-blue-500 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 10-8 0 4 4 0 008 0zm6 4v2a4 4 0 01-3 3.87M3 16v2a4 4 0 003 3.87" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 10-8 0 4 4 0 008 0zm6 4v2a4 4 0 01-3 3.87M3 16v2a4 4 0 003 3.87" />
+                    </svg>
                 </div>
                 <div class="font-semibold text-lg mb-1">Collaboration</div>
                 <div class="text-gray-500 text-center">Work together on quizzes and share results for better learning.</div>
@@ -123,11 +140,16 @@
             </div>
             <div class="flex-1 flex flex-col items-center md:items-start">
                 <div class="flex items-center space-x-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 01-8 0 4 4 0 018 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0 0H9m3 0h3" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 01-8 0 4 4 0 018 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0 0H9m3 0h3" />
+                    </svg>
                     <span class="text-gray-700">support@Quiz.com</span>
                 </div>
                 <div class="flex items-center space-x-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
                     <span class="text-gray-700">123 Learning Ave, Edutown</span>
                 </div>
             </div>
@@ -151,4 +173,5 @@
         </div>
     </footer>
 </body>
+
 </html>
