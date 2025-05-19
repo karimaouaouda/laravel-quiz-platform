@@ -2,30 +2,24 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\UserResource\Pages;
-use App\Filament\Admin\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Admin\Resources\QuizResource\Pages;
+use App\Filament\Admin\Resources\QuizResource\RelationManagers;
+use App\Models\Quiz;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class QuizResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Quiz::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function canCreate(): bool
-    {
-        return false;
-    }
 
     public static function form(Form $form): Form
     {
@@ -42,28 +36,20 @@ class UserResource extends Resource
                 TextColumn::make('id')
                     ->badge()
                     ->color(Color::Blue),
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('role')
+                TextColumn::make('teacher.name')
+                    ->badge(),
+                TextColumn::make('status')
+                    ->badge(),
+                TextColumn::make('created_at')
+                    ->dateTime()
                     ->badge()
-                    ->color(Color::Yellow),
-                TextColumn::make('email')
-                    ->searchable(),
-            TextColumn::make('created_at')
-                ->dateTime()
-                ->badge()
+                    ->color(Color::Green)
             ])
             ->filters([
-                SelectFilter::make('role')
-                    ->options([
-                        'student' => 'student',
-                        'teacher' => 'teacher',
-                    ])
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -82,9 +68,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListQuizzes::route('/'),
+            'create' => Pages\CreateQuiz::route('/create'),
+            'edit' => Pages\EditQuiz::route('/{record}/edit'),
         ];
     }
 }
