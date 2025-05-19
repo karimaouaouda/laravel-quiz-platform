@@ -2,9 +2,9 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\QuestionResource\Pages;
-use App\Filament\Admin\Resources\QuestionResource\RelationManagers;
-use App\Models\Question;
+use App\Filament\Admin\Resources\SubjectResource\Pages;
+use App\Filament\Admin\Resources\SubjectResource\RelationManagers;
+use App\Models\Subject;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,9 +14,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class QuestionResource extends Resource
+class SubjectResource extends Resource
 {
-    protected static ?string $model = Question::class;
+    protected static ?string $model = Subject::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -35,7 +35,7 @@ class QuestionResource extends Resource
                 TextColumn::make('id')
                     ->badge()
                     ->prefix('#'),
-                TextColumn::make('subject.name')
+                TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('teacher.name')
                     ->badge()
@@ -64,9 +64,9 @@ class QuestionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListQuestions::route('/'),
-            'create' => Pages\CreateQuestion::route('/create'),
-            'edit' => Pages\EditQuestion::route('/{record}/edit'),
+            'index' => Pages\ListSubjects::route('/'),
+            'create' => Pages\CreateSubject::route('/create'),
+            'edit' => Pages\EditSubject::route('/{record}/edit'),
         ];
     }
 }
