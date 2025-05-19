@@ -28,7 +28,7 @@
 
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-2">
             <div class="flex items-center gap-2 w-full md:w-auto">
-                <x-button wire:click="validateAnswer" class="bg-blue-500 text-white px-5 py-2 rounded-md font-semibold hover:bg-blue-600 transition">Validate</x-button>
+                <x-button @on('timeExpired', (e) => alert('4')) wire:click="validateAnswer" class="bg-blue-500 text-white px-5 py-2 rounded-md font-semibold hover:bg-blue-600 transition">Validate</x-button>
                 <x-button wire:click="nextQuestion" class="bg-gray-100 text-blue-500 px-5 py-2 rounded-md font-semibold hover:bg-blue-50 transition">Next Question</x-button>
             </div>
             <div class="text-gray-500 w-full text-center md:w-auto">Question {{ $currentQuestionNumber }} of {{ $totalQuestions }}</div>

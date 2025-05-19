@@ -24,9 +24,7 @@ return new class extends Migration
             $table->enum('status',
                 array_map(fn(\App\Enums\QuizStatus $case) => $case->value, \App\Enums\QuizStatus::cases())
             )->default(\App\Enums\QuizStatus::INACTIVE->value);
-            $table->enum('difficulty_level',
-                array_map(fn(\App\Enums\DifficultyLevel $case) => $case->value, \App\Enums\DifficultyLevel::cases())
-            );
+            
             $table->string('title');
             $table->text('description');
             $table->timestamp('end_at')->nullable();

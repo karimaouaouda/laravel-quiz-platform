@@ -33,12 +33,12 @@ class Pass extends Component
             ->findOrFail(request('quiz'));
 
 
-
         $this->submission = Submission::query()
             ->firstOrCreate([
-                'quiz_id' => $this->quiz->id,
+                'quiz_id' => $this->quiz->getAttribute('id'),
                 'student_id' => Auth::id(),
-            ])->first();
+            ]);
+
 
         $this->setup();
     }
@@ -101,7 +101,12 @@ class Pass extends Component
     public function timeExpired()
     {
         // Auto-submit with no answer or mark as unanswered
-        $this->validateAnswer(0);
+        $this->submission->answers()->create([
+            'question_id' => $this->question->id,
+            'choice_id' => $this->answer,
+            'time_expired' => true
+        ]);
+        $this->setup();
     }
 
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory

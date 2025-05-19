@@ -73,7 +73,6 @@ class QuestionResource extends Resource
                     })
                     ->schema([
                         Forms\Components\Repeater::make('choices')
-                            ->relationship('choices')
                             ->live()
                             ->minItems(1)
                             ->schema([

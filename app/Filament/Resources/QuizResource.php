@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Table;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -132,12 +133,11 @@ class QuizResource extends Resource
                 Tables\Columns\TextColumn::make('difficulty_level')
                     ->color(Color::Green)
                     ->badge(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
-                    ->color(fn($state) => match ($state){
-                        QuizStatus::ACTIVE->value => Color::Green,
-                        QuizStatus::INACTIVE->value => Color::Red,
-                    }),
+                    SelectColumn::make('status')
+                        ->options([
+                            QuizStatus::ACTIVE->value => 'active',
+                            QuizStatus::INACTIVE->value => 'inactive',
+                        ]),
                 Tables\Columns\TextColumn::make('end_at')
                     ->dateTime()
                     ->badge(),

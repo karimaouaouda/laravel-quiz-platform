@@ -20,7 +20,6 @@ class Quiz extends Model
         'subject_id',
         'code',
         'title',
-        'difficulty_level',
         'description',
         'status',
         'end_at',
