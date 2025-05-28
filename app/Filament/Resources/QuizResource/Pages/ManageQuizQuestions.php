@@ -80,6 +80,18 @@ class ManageQuizQuestions extends ManageRelatedRecords
                             })->allowHtml()
                     ])->action(function(array $data){
                         $selected_questions = array_values($data['questions']);
+                        $max_questions = $this->record->getAttribute('questions_count');
+                        $quiz_old_questions = $this->record->questions()->pluck('id')->toArray();
+                        $selected_questions = array_diff($selected_questions, $quiz_old_questions);
+
+                        if(count($selected_questions) > $max_questions){
+                            Notification::make()
+                                ->title('error')
+                                ->body('you can not attach more than ' . $max_questions . ' questions')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
                         $this->record->questions()->syncWithoutDetaching($selected_questions);
                     }),
                 Action::make('select random questions')
@@ -94,21 +106,23 @@ class ManageQuizQuestions extends ManageRelatedRecords
                             ->hint('the number of questions will attached')
                     ])
                     ->action(function(array $data){
-                        //$diff_level = $this->record->getAttribute('difficulty_level');
                         $subject_id = $this->record->getAttribute('subject_id');
                         $count = $data['questions_count'];
+                        $quiz_old_questions = $this->record->questions()->pluck('id')->toArray();
 
                         $available_questions = Question::query()
                             ->where('teacher_id', $this->record->getAttribute('teacher_id'))
                             ->where('subject_id', $subject_id)
                             ->where('difficulty_level', $this->record->getAttribute('difficulty_level'))
+                            ->whereNotIn('id', $quiz_old_questions)
                             ->get();
 
                         if($available_questions->count() < $count){
                             Notification::make()
                                 ->title('error')
-                                ->body('not enough questions')
-                                ->color(Color::Red);
+                                ->body('not enough questions, available : ' . $available_questions->count())
+                                ->warning()
+                                ->send();
 
                             return;
                         }
