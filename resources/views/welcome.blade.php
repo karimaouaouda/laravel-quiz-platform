@@ -65,7 +65,6 @@
                         <div class="text-gray-500 text-sm text-center group-hover:text-white">Create and manage quizzes</div>
                     </a>
                 </div>
-                <a href="#" class="block w-full  text-center border border-blue-400 text-blue-500 rounded-md px-6 py-2 font-medium hover:bg-blue-50 transition">Create New Account</a>
             </div>
             <!-- Right: Illustration -->
             <div class="flex justify-center w-2/5">
@@ -75,7 +74,7 @@
     </main>
 
     <!-- About Us Section -->
-    <section class="max-w-6xl mx-auto mt-20 px-4">
+    <section id="about" class="max-w-6xl mx-auto mt-20 px-4">
         <div class="bg-slate-50 rounded-2xl shadow-md p-8 flex flex-col items-center">
             <h2 class="text-2xl font-bold text-gray-800 mb-2">About Us</h2>
             <p class="text-gray-500 text-center max-w-2xl">Quiz is dedicated to making learning interactive and fun. Our platform empowers students and teachers to create, share, and participate in quizzes, fostering collaboration and knowledge sharing in a modern, user-friendly environment.</p>
@@ -83,7 +82,7 @@
     </section>
 
     <!-- Services Section -->
-    <section class="max-w-6xl mx-auto mt-16 px-4">
+    <section id="services" class="max-w-6xl mx-auto mt-16 px-4">
         <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">Our Services</h2>
         <div class="flex flex-col md:flex-row gap-8 justify-center">
             <!-- Share Quizzes -->
@@ -120,7 +119,7 @@
     </section>
 
     <!-- Contact Us Section -->
-    <section class="max-w-6xl mx-auto mt-16 px-4 mb-20">
+    <section id="contect" class="max-w-6xl mx-auto mt-16 px-4 mb-20">
         <div class="bg-white rounded-2xl shadow p-8 flex flex-col md:flex-row gap-10 items-center">
             <div class="flex-1">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Contact Us</h2>
@@ -165,9 +164,9 @@
             </div>
             <div class="flex space-x-6 mb-4 md:mb-0">
                 <a href="#" class="text-gray-600 hover:text-blue-500">Home</a>
-                <a href="#" class="text-gray-600 hover:text-blue-500">About</a>
-                <a href="#" class="text-gray-600 hover:text-blue-500">Services</a>
-                <a href="#" class="text-gray-600 hover:text-blue-500">Contact</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-500">About</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-500">Services</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-500">Contact</a>
             </div>
             <div class="text-gray-400 text-sm">&copy; 2024 Quiz. All rights reserved.</div>
         </div>
