@@ -68,6 +68,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                         Forms\Components\Select::make('questions')
                             ->multiple()
                             ->minItems(1)
+                            ->preload()
                             ->options(function(){
                                 return Auth::user()
                                     ->questions()
@@ -100,6 +101,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                         $available_questions = Question::query()
                             ->where('teacher_id', $this->record->getAttribute('teacher_id'))
                             ->where('subject_id', $subject_id)
+                            ->where('difficulty_level', $this->record->getAttribute('difficulty_level'))
                             ->get();
 
                         if($available_questions->count() < $count){

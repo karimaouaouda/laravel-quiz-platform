@@ -83,10 +83,6 @@ class QuizResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->placeholder('the quiz title')
                     ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->hint('the quiz description to show in quiz card')
-                    ->placeholder('the quiz description'),
                 Forms\Components\DatePicker::make('end_at')
                     ->default(now()->addDay())
                     ->minDate(now()->addDay())

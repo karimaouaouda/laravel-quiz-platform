@@ -23,7 +23,7 @@
     <!-- Header -->
     <header class="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
         <div class="flex items-center space-x-2">
-            <img src="https://img.icons8.com/ios-filled/50/000000/quiz.png" alt="Quiz Logo" class="h-7 w-7">
+            <img src="{{ asset('logo.png') }}" alt="Quiz Logo" class="h-12 w-12">
             <span class="text-blue-500 font-bold text-xl">Quiz</span>
         </div>
         <nav class="flex items-center space-x-6">
@@ -44,7 +44,7 @@
 
                 <div class="flex w-full flex-col md:flex-row gap-6 mb-6">
                     <!-- Student Card -->
-                    <a href="{{route('filament.student.pages.dashboard')}}" 
+                    <a href="{{route('filament.student.pages.dashboard')}}"
                         class="bg-white rounded-xl shadow p-6 flex-1 min-w-[220px] flex flex-col items-center hover:bg-sky-600 hover:!text-white ease-in-out duration-300 group">
                         <div class="text-blue-500 group-hover:text-white mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +160,7 @@
     <footer class="bg-white border-t border-gray-200 py-6 mt-8">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
             <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                <img src="https://img.icons8.com/ios-filled/50/000000/quiz.png" alt="Quiz Logo" class="h-6 w-6">
+                <img src="{{ asset('logo.png') }}" alt="Quiz Logo" class="h-12 w-12">
                 <span class="text-blue-500 font-bold text-lg">Quiz</span>
             </div>
             <div class="flex space-x-6 mb-4 md:mb-0">

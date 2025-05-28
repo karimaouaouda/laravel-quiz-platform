@@ -24,9 +24,8 @@ return new class extends Migration
             $table->enum('status',
                 array_map(fn(\App\Enums\QuizStatus $case) => $case->value, \App\Enums\QuizStatus::cases())
             )->default(\App\Enums\QuizStatus::INACTIVE->value);
-            
+
             $table->string('title');
-            $table->text('description');
             $table->timestamp('end_at')->nullable();
             $table->timestamps();
         });
