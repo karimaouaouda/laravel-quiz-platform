@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\UpdateQuizRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -16,6 +17,10 @@ class QuizController extends Controller
      */
     public function index()
     {
+        if( !Auth::user()->isStudent() ){
+            return to_route('home')->with('status', 'you are not a student');
+        }
+
         return view('quiz.index');
     }
 
