@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\Auth\Login;
-use App\Filament\Pages\Auth\TeacherRegistrationPage as Register;
+use App\Filament\Pages\Auth\Teacher\Login;
+use App\Filament\Pages\Auth\Teacher\Register;
 use App\Filament\Widgets\GlobalStats;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
