@@ -80,6 +80,14 @@ class QuizResource extends Resource
                     ->options(DifficultyLevel::toArray(true))
                     ->default(DifficultyLevel::EASY->value)
                     ->required(),
+                TextInput::make('questions_count')
+                    ->label('number of questions')
+                    ->default(10)
+                    ->numeric()
+                    ->hint('must be between 5 and 50')
+                    ->maxValue(50)
+                    ->minValue(5)
+                    ->required(),
                 Forms\Components\TextInput::make('title')
                     ->placeholder('the quiz title')
                     ->required(),

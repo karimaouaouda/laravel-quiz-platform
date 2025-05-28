@@ -20,6 +20,7 @@ class Quiz extends Model
         'subject_id',
         'code',
         'title',
+        'questions_count',
         'status',
         'end_at',
     ];
