@@ -73,7 +73,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                                 return Auth::user()
                                     ->questions()
                                     ->where('subject_id', $this->record->subject->id)
-                                    //->where('difficulty_level', $this->record->difficulty_level)
+                                    ->where('difficulty_level', $this->record->difficulty_level)
                                     ->get()
                                     ->pluck('text', 'id')
                                     ->toArray();
