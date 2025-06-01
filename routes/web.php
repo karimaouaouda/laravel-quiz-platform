@@ -15,7 +15,10 @@ Route::get('/quiz/result/{submission}', function (Submission $submission) {
 })->name('quiz.result');
 
 Route::get('/update-db', function(){
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+    $buffer = [];
+    $i = \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+
+    return $i;
 });
 
 
