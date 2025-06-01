@@ -6,6 +6,7 @@ use App\Enums\QuestionType;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Submission;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,11 @@ class Pass extends Component
             ->first();
 
         if( !$question ){
-
+            Notification::make()
+                ->title('new submission for quiz : #' . $this->quiz->getAttribute('id'))
+                ->body(sprintf("student : %s answered your quiz (#%d)", $this->submission->student->name, $this->quiz->getAttribute('id')))
+                ->info()
+                ->sendToDatabase($this->quiz->teacher)
             // the quiz finished just redirect the user to the finish screen
             $this->redirectIntended(route('quiz.result', [
                 'submission' => $this->submission,
