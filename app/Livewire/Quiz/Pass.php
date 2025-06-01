@@ -85,13 +85,21 @@ class Pass extends Component
         // just remove the last question from Database
         $this->setup();
     }
-
-    public function cancelQuestion(): void
+    #[On('cancelQuiz')]
+    public function cancelQuiz(): void
     {
-        $this->redirectIntended('/');
+        $this->submission->delete();
+        $this->redirectIntended(route('filament.student.pages.dashboard'));
     }
 
     public function validateAnswer($timeLeft = null): void {
+        if( !$this->submission ){
+            $this->submission = Submission::query()
+                ->firstOrCreate([
+                    'quiz_id' => $this->quiz->getAttribute('id'),
+                    'student_id' => Auth::id(),
+                ]);
+        }
         $duration = $timeLeft !== null ? (60 - (int)$timeLeft) : 0;
         if( $this->question->getAttribute('question_type') == QuestionType::MULTIPLE_CHOICE){
             if( count($this->answers) <= 0 ){

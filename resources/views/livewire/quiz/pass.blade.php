@@ -9,7 +9,6 @@
                     Time Left: <span id="timer">{{ $timeLeft }}</span>s
                 </div>
                 <input type="hidden" id="timeLeftInput" name="timeLeft" value="{{ $timeLeft }}" />
-                <a href="#" class="font-semibold text-blue-500 hover:text-blue-600 transition">Cancel Quiz</a>
             </div>
         </div>
 
@@ -59,6 +58,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var shouldAskBeforeLeave = true
         let timeLeft = parseInt(document.getElementById('timer').textContent);
         const timerDisplay = document.getElementById('timer');
         const timeLeftInput = document.getElementById('timeLeftInput');
@@ -69,15 +69,24 @@
                 timeLeftInput.value = timeLeft;
             } else {
                 clearInterval(timerInterval);
+                shouldAskBeforeLeave = false
                 // Trigger Livewire method when time runs out
                 Livewire.dispatch('timeExpired');
             }
         }, 1000);
-
         Livewire.on('validationError', function(params){
             let data = params[0]
-
             alert(data['message'])
         })
+        function goodby(e){
+            e.preventDefault()
+            Livewire.dispatch('cancelQuiz')
+            return "sorry"
+        }
+
+        Livewire.on('reloadEvent', function(){
+            window.location.reload()
+        })
+        //window.onbeforeunload = goodby
     });
 </script>
