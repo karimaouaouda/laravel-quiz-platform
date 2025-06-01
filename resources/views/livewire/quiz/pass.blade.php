@@ -49,7 +49,7 @@
 
     <footer class="w-full max-w-2xl mx-auto mt-10 bg-white border-t border-gray-200 py-4 rounded-b-2xl shadow flex flex-col md:flex-row items-center justify-between px-6">
         <div class="flex items-center space-x-2 mb-2 md:mb-0">
-            <img src="{{ asset('images/logo.png') }}" alt="QuizGen Logo" class="h-6 w-6">
+            <img src="{{ asset('logo.png') }}" alt="QuizGen Logo" class="h-12 w-12">
             <span class="text-blue-500 font-bold text-lg">QuizGen</span>
         </div>
         <div class="text-gray-400 text-sm">&copy; 2024 QuizGen. All rights reserved.</div>

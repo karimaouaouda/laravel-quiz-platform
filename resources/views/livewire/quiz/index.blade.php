@@ -3,7 +3,7 @@
     {{-- Header/Navbar --}}
     <header class="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
         <div class="flex items-center space-x-2">
-            <img src="{{ asset('images/logo.png') }}" alt="QuizGen Logo" class="h-7 w-7">
+            <img src="{{ asset('logo.png') }}" alt="QuizGen Logo" class="h-12 w-12">
             <span class="text-blue-500 font-bold text-xl">QuizGen</span>
         </div>
         <nav class="flex items-center space-x-6">
@@ -104,7 +104,7 @@
     <footer class="bg-white border-t border-gray-200 py-6 mt-8">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
             <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                <img src="{{ asset('images/logo.png') }}" alt="QuizGen Logo" class="h-6 w-6">
+                <img src="{{ asset('logo.png') }}" alt="QuizGen Logo" class="h-12 w-12">
                 <span class="text-blue-500 font-bold text-lg">QuizGen</span>
             </div>
             <div class="flex space-x-6 mb-4 md:mb-0">
