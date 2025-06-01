@@ -20,8 +20,18 @@ class Submission extends Model
     ];
 
     public function getScoreAttribute(){
-        $questions_count = $this->answers()->count(); // answers count is the same as questions count
-        return $this->correct_answers_count / $questions_count * 100;
+        $answers = $this->answers;
+        $questions = $this->quiz->questions;
+        $correct_choices = 0;
+        foreach ($questions as $question){
+            $correct_choices += $question->correct_choices_count;
+        }
+        // answers count is the same as questions count
+        $questions_count = $questions->count();
+        return $this->answers()
+                ->whereHas('choice', function($q){
+                    $q->where('is_correct', true);
+                })->count() / $correct_choices * 100;
     }
 
     public function getCorrectAnswersCountAttribute(){
