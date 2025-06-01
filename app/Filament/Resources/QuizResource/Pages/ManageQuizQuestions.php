@@ -127,6 +127,17 @@ class ManageQuizQuestions extends ManageRelatedRecords
                             return;
                         }
 
+                        $max_questions = $this->record->getAttribute('questions_count');
+
+                        if( ($count + $quiz_old_questions->count()) > $max_questions ){
+                            Notification::make()
+                                ->title('error')
+                                ->body('maximum questions count exceeded (' . $max_questions . ')' )
+                                ->warning()
+                                ->send();
+
+                            return;
+                        }
                         $this->record->questions()->syncWithoutDetaching($available_questions->random($count));
                     }),
             ])
