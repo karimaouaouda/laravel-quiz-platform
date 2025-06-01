@@ -73,7 +73,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                                 return Auth::user()
                                     ->questions()
                                     ->where('subject_id', $this->record->subject->id)
-                                    ->where('difficulty_level', $this->record->difficulty_level)
+                                    //->where('difficulty_level', $this->record->difficulty_level)
                                     ->get()
                                     ->pluck('text', 'id')
                                     ->toArray();
@@ -81,7 +81,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                     ])->action(function(array $data){
                         $selected_questions = array_values($data['questions']);
                         $max_questions = $this->record->getAttribute('questions_count');
-                        $quiz_old_questions = $this->record->questions()->pluck('id')->toArray();
+                        $quiz_old_questions = $this->record->questions()->pluck('questions.id')->toArray();
                         $selected_questions = array_diff($selected_questions, $quiz_old_questions);
 
                         if(count($selected_questions) > $max_questions){

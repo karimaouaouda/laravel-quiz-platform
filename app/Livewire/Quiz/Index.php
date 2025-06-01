@@ -25,7 +25,7 @@ class Index extends Component
     }
     public function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        $query = \App\Models\Quiz::query();
+        $query = \App\Models\Quiz::query()->where('status', 'active');
 
         if (count($this->subjects)) {
             $query->whereIn('subject_id', $this->subjects);
@@ -37,8 +37,7 @@ class Index extends Component
 
         if( !empty($this->search) ){
             $query->where(function($query){
-               $query->where('title', 'like', '%'.$this->search.'%')
-                   ->orWhere('description', 'like', '%'.$this->search.'%');
+               $query->where('title', 'like', '%'.$this->search.'%');
             });
         }
 

@@ -18,17 +18,29 @@
         </div>
 
         <div class="flex flex-col gap-3 bg-white rounded-xl border border-gray-200 p-4 mb-6">
-            @foreach($question->choices as $choice)
-            <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-blue-50 transition">
-                <input wire:model="answer" value="{{ $choice->id }}" type="radio" name="answer" class="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-500 rounded-md">
-                <span class="text-lg text-gray-700">{{ $choice->text }}</span>
-            </label>
-            @endforeach
+            @switch($question->question_type->value)
+                @case('multiple_choice')
+                @foreach($question->choices as $choice)
+                        <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-blue-50 transition">
+                            <input type="checkbox" wire:model="answers.{{$choice->id}}" value="{{ $choice->id }}"  name="answer_{{$choice->id}}" class="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-500 rounded-md">
+                            <span class="text-lg text-gray-700">{{ $choice->text }}</span>
+                        </label>
+                @endforeach
+                @break
+                @default
+                @foreach($question->choices as $choice)
+                    <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-blue-50 transition">
+                        <input wire:model="answer" value="{{ $choice->id }}" type="radio" name="answer" class="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-500 rounded-md">
+                        <span class="text-lg text-gray-700">{{ $choice->text }}</span>
+                    </label>
+                @endforeach
+            @endswitch
+
         </div>
 
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-2">
             <div class="flex items-center gap-2 w-full md:w-auto">
-                <x-button @on('timeExpired', (e) => alert('4')) wire:click="validateAnswer" class="bg-blue-500 text-white px-5 py-2 rounded-md font-semibold hover:bg-blue-600 transition">Validate</x-button>
+                <x-button  wire:click="validateAnswer" class="bg-blue-500 text-white px-5 py-2 rounded-md font-semibold hover:bg-blue-600 transition">Validate</x-button>
                 <x-button wire:click="nextQuestion" class="bg-gray-100 text-blue-500 px-5 py-2 rounded-md font-semibold hover:bg-blue-50 transition">Next Question</x-button>
             </div>
             <div class="text-gray-500 w-full text-center md:w-auto">Question {{ $currentQuestionNumber }} of {{ $totalQuestions }}</div>
@@ -61,5 +73,11 @@
                 Livewire.dispatch('timeExpired');
             }
         }, 1000);
+
+        Livewire.on('validationError', function(params){
+            let data = params[0]
+
+            alert(data['message'])
+        })
     });
 </script>

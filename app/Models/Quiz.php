@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DifficultyLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,8 +22,13 @@ class Quiz extends Model
         'code',
         'title',
         'questions_count',
+        'difficulty_level',
         'status',
         'end_at',
+    ];
+
+    protected $casts = [
+        'difficulty_level' => DifficultyLevel::class,
     ];
 
     /**

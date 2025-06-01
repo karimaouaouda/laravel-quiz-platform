@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('subject_id')
                 ->constrained('subjects')
                 ->onDelete('cascade');
+            $table->enum('difficulty_level', \App\Enums\DifficultyLevel::values());
             $table->enum('status',
                 array_map(fn(\App\Enums\QuizStatus $case) => $case->value, \App\Enums\QuizStatus::cases())
             )->default(\App\Enums\QuizStatus::INACTIVE->value);

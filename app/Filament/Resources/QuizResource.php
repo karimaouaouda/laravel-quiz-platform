@@ -131,9 +131,6 @@ class QuizResource extends Resource
                     ->badge(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->words(5)
-                    ->tooltip(fn($state) => $state),
                 Tables\Columns\TextColumn::make('difficulty_level')
                     ->color(Color::Green)
                     ->badge(),

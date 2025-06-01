@@ -7,6 +7,7 @@ use App\Enums\QuestionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Livewire\Attributes\Computed;
 
 class Question extends Model
 {
@@ -36,6 +37,11 @@ class Question extends Model
         'difficulty_level' => DifficultyLevel::class,
         'question_type' => QuestionType::class,
     ];
+
+    public function getCorrectChoicesCountAttribute()
+    {
+        return $this->choices()->where('is_correct', true)->count();
+    }
 
     /**
      * Get the quiz that owns the question.

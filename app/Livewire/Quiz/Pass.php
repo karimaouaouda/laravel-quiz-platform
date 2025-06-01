@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Quiz;
 
+use App\Enums\QuestionType;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Submission;
@@ -21,6 +22,8 @@ class Pass extends Component
     public Question|Model $question;
 
     public Submission $submission;
+
+    public array $answers = [];
 
     public ?string $answer = '';
 
@@ -46,8 +49,7 @@ class Pass extends Component
     public function setup(): void
     {
         // we will fetch the questions and order them then return the first one which have no answer
-
-        //first let's get the answers which the user answer for this quiz
+        // first let's get the answers which the user answer for this quiz
         $answers = $this->submission->answers()->get();
 
         // then we can retrieve the remaining questions
@@ -57,17 +59,19 @@ class Pass extends Component
             ->first();
 
         if( !$question ){
+
             // the quiz finished just redirect the user to the finish screen
             $this->redirectIntended(route('quiz.result', [
                 'submission' => $this->submission,
             ]));
+
         }else{
+
             $this->question = $question;
-        
             $this->timeLeft = 60; // Reset timer for each question
         }
 
-        
+
     }
 
     public function nextQuestion(): void
@@ -89,11 +93,35 @@ class Pass extends Component
 
     public function validateAnswer($timeLeft = null): void {
         $duration = $timeLeft !== null ? (60 - (int)$timeLeft) : 0;
-        $this->submission->answers()->create([
-            'question_id' => $this->question->id,
-            'choice_id' => $this->answer,
-            'answer_duration' => $duration
-        ]);
+        if( $this->question->getAttribute('question_type') == QuestionType::MULTIPLE_CHOICE){
+            if( count($this->answers) <= 0 ){
+                $this->dispatch('validationError', [
+                   'message' => 'multiple choices must be at least one selected'
+                ]);
+                return;
+            }
+
+            foreach ($this->answers as $choice_id => $value){
+                $this->submission->answers()->create([
+                    'question_id' => $this->question->id,
+                    'choice_id' => $choice_id,
+                    'answer_duration' => $duration
+                ]);
+            }
+        }else{
+            if( empty($this->answer) ){
+                $this->dispatch('validationError', [
+                    'message' => 'answer must be at least one selected'
+                ]);
+                return;
+            }
+            $this->submission->answers()->create([
+                'question_id' => $this->question->id,
+                'choice_id' => $this->answer,
+                'answer_duration' => $duration
+            ]);
+        }
+
         $this->setup();
     }
 
@@ -103,7 +131,7 @@ class Pass extends Component
         // Auto-submit with no answer or mark as unanswered
         $this->submission->answers()->create([
             'question_id' => $this->question->id,
-            'choice_id' => $this->answer,
+            'choice_id' => empty($this->answer) ? null : $this->answer,
             'time_expired' => true
         ]);
         $this->setup();
