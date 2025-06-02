@@ -35,6 +35,7 @@ class StudentPanelProvider extends PanelProvider
             ->login(Login::class)
             ->registration(Register::class)
             ->emailVerification()
+            ->profile(isSimple: false)
             ->databaseNotifications()
             ->passwordReset()
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
