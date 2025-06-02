@@ -45,9 +45,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-DB_CONNECTION=mysql
-DB_HOST=
-DB_PORT=3306
-DB_DATABASE=main
-DB_USERNAME=bui1le6yqbaztpsi
-DB_PASSWORD=z0LBEHHHp5MtXp4qMaAl
