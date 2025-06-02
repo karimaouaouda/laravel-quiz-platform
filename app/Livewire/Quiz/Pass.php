@@ -64,7 +64,7 @@ class Pass extends Component
                 ->title('new submission for quiz : #' . $this->quiz->getAttribute('id'))
                 ->body(sprintf("student : %s answered your quiz (#%d)", $this->submission->student->name, $this->quiz->getAttribute('id')))
                 ->info()
-                ->sendToDatabase($this->quiz->teacher)
+                ->sendToDatabase($this->quiz->teacher);
             // the quiz finished just redirect the user to the finish screen
             $this->redirectIntended(route('quiz.result', [
                 'submission' => $this->submission,

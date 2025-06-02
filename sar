@@ -1,0 +1,7 @@
+SELECT
+MONTH(`date`) AS `month`,
+employee_matricule AS mat,
+COUNT(*) AS `count`,
+SUM(late_hours) AS total_hours
+FROM `appointments`
+GROUP BY `month`,`mat`;

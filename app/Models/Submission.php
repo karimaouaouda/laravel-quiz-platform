@@ -26,12 +26,23 @@ class Submission extends Model
         foreach ($questions as $question){
             $correct_choices += $question->correct_choices_count;
         }
-        // answers count is the same as questions count
-        $questions_count = $questions->count();
-        return $this->answers()
-                ->whereHas('choice', function($q){
-                    $q->where('is_correct', true);
-                })->count() / $correct_choices * 100;
+
+        $your_correct_answers = $this->answers()
+            ->whereHas('choice', function($q){
+                $q->where('is_correct', true);
+            })->count();
+
+        $your_wrong_answers = $this->answers()
+            ->whereHas('choice', function($q){
+                $q->where('is_correct', false);
+            })->count();
+
+        $n = ($your_correct_answers - $your_wrong_answers);
+
+        if( $n <= 0 )
+            return 0;
+
+        return  ( / ($your_wrong_answers + $correct_choices)) * 100;
     }
 
     public function getCorrectAnswersCountAttribute(){

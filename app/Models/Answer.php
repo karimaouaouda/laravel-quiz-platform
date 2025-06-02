@@ -35,6 +35,10 @@ class Answer extends Model
         return $this->belongsTo(Choice::class);
     }
 
+    public function submission(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Submission::class);
+    }
 
     public function isCorrect(): bool
     {
