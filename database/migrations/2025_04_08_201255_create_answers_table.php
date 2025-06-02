@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('submission_id')
                 ->constrained('submissions')
                 ->onDelete('cascade');
+
             $table->foreignId('question_id')
                 ->constrained('questions')
                 ->onDelete('cascade');

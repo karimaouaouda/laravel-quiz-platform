@@ -31,7 +31,7 @@ class TeacherPanelProvider extends PanelProvider
             ->path('teacher')
             ->login(Login::class)
             ->registration(Register::class)
-            ->emailVerification()
+            //->emailVerification()
             ->databaseNotifications()
             ->profile(isSimple: false)
             ->colors([

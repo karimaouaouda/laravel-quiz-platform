@@ -34,7 +34,7 @@ class StudentPanelProvider extends PanelProvider
             ])
             ->login(Login::class)
             ->registration(Register::class)
-            ->emailVerification()
+            //->emailVerification()
             ->profile(isSimple: false)
             ->databaseNotifications()
             ->passwordReset()
