@@ -42,7 +42,7 @@ class Submission extends Model
         if( $n <= 0 )
             return 0;
 
-        return  ( / ($your_wrong_answers + $correct_choices)) * 100;
+        return  ( $n / ($your_wrong_answers + $correct_choices)) * 100;
     }
 
     public function getCorrectAnswersCountAttribute(){
