@@ -37,12 +37,11 @@ class Submission extends Model
                 $q->where('is_correct', false);
             })->count();
 
-        $n = ($your_correct_answers - $your_wrong_answers);
 
-        if( $n <= 0 )
+        if( $your_correct_answers == $your_wrong_answers )
             return 0;
 
-        return  ( $n / ($your_wrong_answers + $correct_choices)) * 100;
+        return  ( $your_correct_answers / ($your_wrong_answers + $correct_choices)) * 100;
     }
 
     public function getCorrectAnswersCountAttribute(){

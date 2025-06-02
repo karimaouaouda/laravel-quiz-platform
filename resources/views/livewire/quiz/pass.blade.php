@@ -21,7 +21,7 @@
                 @case('multiple_choice')
                 @foreach($question->choices as $choice)
                         <label class="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-blue-50 transition">
-                            <input type="checkbox" wire:model="answers.{{$choice->id}}" value="{{ $choice->id }}"  name="answer_{{$choice->id}}" class="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-500 rounded-md">
+                            <input type="checkbox" wire:model="answers.{{$choice->id}}" class="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-500 rounded-md">
                             <span class="text-lg text-gray-700">{{ $choice->text }}</span>
                         </label>
                 @endforeach

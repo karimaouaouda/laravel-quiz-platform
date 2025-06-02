@@ -2,7 +2,9 @@
 
 namespace App\Filament\Pages\Auth\Student;
 
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
 use Filament\Pages\Auth\Register as AuthRegister;
 
 class Register extends AuthRegister
@@ -28,5 +30,16 @@ class Register extends AuthRegister
                     ->statePath('data'),
             ),
         ];
+    }
+
+    protected function getEmailFormComponent(): Component
+    {
+        return TextInput::make('email')
+            ->label(__('filament-panels::pages/auth/register.form.email.label'))
+            ->email()
+            ->required()
+            ->maxLength(255)
+            ->placeholder('Exemple@gmail.com')
+            ->unique($this->getUserModel());
     }
 }

@@ -41,10 +41,17 @@ return new class extends Migration
 
 
         DB::table('users')->insert([
+            [
+            'role' => \App\Enums\UserRoles::TEACHER->value,
+            'name' => 'Gouasmi Noreddine',
+            'email' => 'n_gouasmi@hotmail.com',
+            'password' => Hash::make('password'),
+        ],[
             'role' => \App\Enums\UserRoles::ADMIN->value,
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
+        ]
         ]);
     }
 

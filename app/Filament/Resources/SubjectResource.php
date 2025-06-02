@@ -37,7 +37,10 @@ class SubjectResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\Textarea::make('description')
-                    ->required()
+                    ->label('subject description')
+                    ->placeholder('subject description')
+                    ->hint('subject description for easy search')
+                    ->nullable(),
             ])->columns(1);
     }
 
