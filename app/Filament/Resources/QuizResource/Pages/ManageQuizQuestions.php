@@ -108,7 +108,7 @@ class ManageQuizQuestions extends ManageRelatedRecords
                     ->action(function(array $data){
                         $subject_id = $this->record->getAttribute('subject_id');
                         $count = $data['questions_count'];
-                        $quiz_old_questions = $this->record->questions()->pluck('id')->toArray();
+                        $quiz_old_questions = $this->record->questions()->pluck('questions.id')->toArray();
 
                         $available_questions = Question::query()
                             ->where('teacher_id', $this->record->getAttribute('teacher_id'))
