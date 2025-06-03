@@ -10,6 +10,5 @@ class CreateSubject extends CreateRecord
 {
     protected static string $resource = SubjectResource::class;
 
-
     protected static bool $canCreateAnother = false;
 }
